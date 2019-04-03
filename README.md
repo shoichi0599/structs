@@ -14,10 +14,9 @@ It is a data structure in Go and you can think of it
 as being like a collection of different properties
 that are somehow related together or have some type of common purpose.
 
-### 1. Defining a struct
+### 1. Defining and Declaring a Struct
 Whenever we make a struct we have to first define all of the different properties that a struct might have.
 
-##### Example
 ```
  Tell Go what fileds the person struct has.
  
@@ -46,23 +45,48 @@ Whenever we make a struct we have to first define all of the different propertie
  +----------------------------------+
 ```
 
-##### Code
 ```go
 package main
 
 import "fmt"
 
+// Define a person struct
 // Tell Go what fileds the person struct has.
 // Let's say a person struct should have a first name and a last name
 type person struct {
-	firstName string
-	lastName string
+    firstName string
+    lastName string
 }
 
 func main() {
-	// Define the person struct
-	// person{"Alex", "Anderson"}, this syntax works too
-	alex := person{firstName:"Alex", lastName:"Anderson"}
-	fmt.Println(alex)
+    // Declare the person struct
+    // person{"Taro", "Sato"}, this syntax works too
+    taro := person{firstName:"Taro", lastName:"Sato"}
+    fmt.Println(taro)
+}
+```
+
+### 2. Updating Struct Values
+```go
+package main
+
+import "fmt"
+
+type person struct {
+    firstName string
+    lastName  string
+}
+
+func main() {
+    // Declare a person
+    var taro person
+    
+    // Update the struct
+    taro.firstName = "Taro"
+    taro.lastName = "Sato"
+
+    fmt.Println(taro)
+    // "%+v" will print out all the different field names and their values from 'taro'
+    fmt.Printf("%+v", taro)
 }
 ```
