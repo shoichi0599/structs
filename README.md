@@ -26,7 +26,7 @@ Whenever we make a struct we have to first define all of the different propertie
  |  +-----------+     +----------+  |
  |  | firstName | --> | <string> |  |
  |  +-----------+     +----------+  |
- |
+ |                                  |
  |  +-----------+     +----------+  |
  |  | lastName  | --> | <string> |  |
  |  +-----------+     +----------+  |
@@ -38,7 +38,7 @@ Whenever we make a struct we have to first define all of the different propertie
  |  +-----------+     +----------+  |
  |  | firstName | --> |  "Taro"  |  |
  |  +-----------+     +----------+  |
- |
+ |                                  |
  |  +-----------+     +----------+  |
  |  | lastName  | --> |  "Sato"  |  |
  |  +-----------+     +----------+  |
@@ -78,7 +78,7 @@ type person struct {
 }
 
 func main() {
-    // Declare a person
+    // Declare a person (note that usually declare with ":=")
     var taro person
     
     // Update the struct
@@ -88,5 +88,77 @@ func main() {
     fmt.Println(taro)
     // "%+v" will print out all the different field names and their values from 'taro'
     fmt.Printf("%+v", taro)
+}
+```
+
+### 3. Embedding Structs
+```
+          [ person struct ]
+ +---------------------------------------+
+ |                                       |
+ |  +-----------+     +---------------+  |
+ |  | firstName | --> |   <string>    |  |
+ |  +-----------+     +---------------+  |
+ |  +-----------+     +---------------+  |
+ |  | lastName  | --> |   <string>    |  |
+ |  +-----------+     +---------------+  |
+ |  +-----------+     +---------------+  |
+ |  |  contact  | --> | <contactInfo> |  |
+ |  +-----------+     +---------------+  |
+ +---------------------------------------+
+ 
+      [ contactInfo struct ]
+ +------------------------------+
+ |                              |
+ |  +-------+     +----------+  |
+ |  | email | --> | <string> |  |
+ |  +-------+     +----------+  |
+ |                              |
+ |  +-------+     +----------+  |
+ |  |  zip  | --> |  <int>   |  |
+ |  +-------+     +----------+  |
+ +------------------------------+
+```
+```go
+package main
+
+import "fmt"
+
+type contactInfo struct {
+    email   string
+    zipCode int
+}
+
+type person struct {
+    firstName string
+    lastName  string
+    contact   contactInfo
+}
+// Or defining like below works too
+type person2 struct {
+    firstName string
+    lastName  string
+    contactInfo
+}
+
+func main() {
+    jim := person{
+        firstName: "Jim",
+        lastName:  "Party",
+        contact: contactInfo{
+            email:   "jim@gmail.com",
+            zipCode: 94000,
+        },
+    }
+    jim2 := person2{
+        firstName: "Jim",
+        lastName:  "Party",
+        contactInfo: contactInfo{
+            email:   "jim@gmail.com",
+            zipCode: 94000,
+        },
+    }
+    fmt.Printf("%+v", jim)
+    fmt.Printf("%+v", jim2)
 }
 ```
