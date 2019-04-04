@@ -129,11 +129,13 @@ type contactInfo struct {
     zipCode int
 }
 
+// # Pattern 1
 type person struct {
     firstName string
     lastName  string
     contact   contactInfo
 }
+// # Pattern 2
 // Or defining like below works too
 type person2 struct {
     firstName string
@@ -142,6 +144,7 @@ type person2 struct {
 }
 
 func main() {
+    // # Pattern 1
     jim := person{
         firstName: "Jim",
         lastName:  "Party",
@@ -150,6 +153,7 @@ func main() {
             zipCode: 94000,
         },
     }
+    // # Pattern 2
     jim2 := person2{
         firstName: "Jim",
         lastName:  "Party",
